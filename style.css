@@ -1,0 +1,13 @@
+body {
+ background-color:  #f6ddcc;
+ font-family: sans-serif;
+}
+div, .Flagge {
+  padding: 5px;
+}
+#a0w {
+  color: red; 
+}
+#flag-container {
+  min-height: 100px;
+}
