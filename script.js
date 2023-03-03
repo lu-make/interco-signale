@@ -1562,30 +1562,52 @@ const alfa_map = new Map(Object.entries(alfa));
 const flags_map = new Map(Object.entries(flags));
 
 function format_an(){
+	// Vorige Ausgaben löschen
         var alfa_data = [];
         var img = [];
         document.getElementById("flag-container").innerHTML = "";
         document.getElementById("alfa-container").innerHTML = "";
         document.getElementById("inter-container").innerHTML = "";
-        var str = document.getElementById("eing").value;
+        
+	// Eingabewert holen
+	var str = document.getElementById("eing").value;
+	
+	// Eingabestring prüfen
         if (!(str.match(/^[a-z0-9]*$/i))){
                 document.getElementById("alfa-container").innerHTML = "<span id=\"a0w\">Geben Sie nur alphanumerische Zeichen ein</span>";
                 return;
         }
+	
         str = str.toLowerCase();
+	
+	// Signalcode holen
         var inter_data = inter_map.get(str);
+	
+	// wenn keine Definition vorhanden ist, geben wir statt "undefined" eine eigene Meldung aus
         if (inter_data == null){inter_data = "<i>Bedeutung nicht bekannt</i>";}
+	
+	// Zeichen für jeden Buchstaben im String holen
+	// (Flagge und Ansagewort wird Buchstabe für Buchstabe interpretiert; Signalcode als ganzer String)
         var chars = Array.from(str);
         chars.forEach(
                 (item, index) => {
+			// Ansagewort holen
                         alfa_data.push(alfa_map.get(item));
+			
+			// Bildelement erzeugen
                         img.push(document.createElement("img"));
+			
+			// Flaggenzeichen holen
                         img[index].src = flags_map.get(item);
                         img[index].className = "Flagge";
+			
+			// Ansagewort und Flagge schreiben
                         document.getElementById("alfa-container").innerHTML = alfa_data.join(" ");
                         document.getElementById("flag-container").appendChild(img[index]);
                         }
         );
+	
+	// Leerer String wird nicht interpretiert
         if(str){
         document.getElementById("inter-container").innerHTML = inter_data;
         }
